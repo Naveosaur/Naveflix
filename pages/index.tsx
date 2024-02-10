@@ -1,6 +1,7 @@
 import userCurrentUser from "@/hooks/useCurrentUser";
 import { NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import Navbar from "@/components/Navbar";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -8,7 +9,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (!session) {
     return {
       redirect: {
-        destination: "/Auth",
+        destination: "/auth",
         permanent: false,
       },
     };
@@ -24,11 +25,7 @@ export default function Home() {
 
   return (
     <>
-      <h1>Clone</h1>
-      <p>{user?.name}</p>
-      <button className="h-10 w-full bg-white" onClick={() => signOut()}>
-        Logout
-      </button>
+      <Navbar />
     </>
   );
 }
